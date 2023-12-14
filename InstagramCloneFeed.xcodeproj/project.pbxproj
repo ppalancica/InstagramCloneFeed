@@ -60,6 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F35C9712B2B5FC700DC4846 /* Feed API */ = {
+			isa = PBXGroup;
+			children = (
+				6FB024582B1BF447001B317D /* RemoteFeedLoaderTests.swift */,
+			);
+			path = "Feed API";
+			sourceTree = "<group>";
+		};
 		6F8859EF2B23C83100FAD781 /* Feed API */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,8 +109,8 @@
 		6FB024472B1BEC05001B317D /* InstagramCloneFeedTests */ = {
 			isa = PBXGroup;
 			children = (
+				6F35C9712B2B5FC700DC4846 /* Feed API */,
 				6FB024482B1BEC05001B317D /* InstagramCloneFeedTests.swift */,
-				6FB024582B1BF447001B317D /* RemoteFeedLoaderTests.swift */,
 			);
 			path = InstagramCloneFeedTests;
 			sourceTree = "<group>";
