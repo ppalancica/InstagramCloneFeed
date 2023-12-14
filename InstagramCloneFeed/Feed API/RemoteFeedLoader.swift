@@ -30,45 +30,19 @@ public final class RemoteFeedLoader {
         client.get(from: url) { result in
             switch result {
                 case let .success(data, response):
-                    do {
-                        let items = try FeedItemsMapper.map(data, response)
-                        completion(.success(items))
-                    } catch {
-                        completion(.failure(.invalidData))
-                    }
+                    completion(self.map(data, from: response))
                 case .failure:
                     completion(.failure(.connectivity))
             }
         }
     }
     
-//    public func load(completion: @escaping (Result) -> Void) {
-//        client.get(from: url) { result in
-//            switch result {
-//                case let .success(data, response):
-//                    if response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) {
-//                        completion(.success(root.items.map { $0.item })) // completion(.success(root.items))
-//                    } else {
-//                        completion(.failure(.invalidData))
-//                    }
-//                case .failure:
-//                    completion(.failure(.connectivity))
-//            }
-//        }
-//    }
-    
-//    public func load(completion: @escaping (Result) -> Void) {
-//        client.get(from: url) { result in
-//            switch result {
-//                case let .success(data, response):
-//                    if let _ = try? JSONSerialization.jsonObject(with: data) {
-//                        completion(.success([]))
-//                    } else {
-//                        completion(.failure(.invalidData))
-//                    }
-//                case .failure:
-//                    completion(.failure(.connectivity))
-//            }
-//        }
-//    }
+    private func map(_ data: Data, from response: HTTPURLResponse) -> Result {
+        do {
+            let items = try FeedItemsMapper.map(data, response)
+            return .success(items)
+        } catch {
+            return .failure(.invalidData)
+        }
+    }
 }
