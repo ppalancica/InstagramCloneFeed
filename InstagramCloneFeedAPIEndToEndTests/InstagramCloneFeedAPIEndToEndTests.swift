@@ -37,10 +37,14 @@ class InstagramCloneFeedAPIEndToEndTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getFeedResult() -> LoadFeedResult? {
+    private func getFeedResult(file: StaticString = #file, // #filePath
+                               line: UInt = #line) -> LoadFeedResult? {
         let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
         let client = URLSessionHTTPClient()
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
+        
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
         var receivedResult: LoadFeedResult?
         let expectation = expectation(description: "Wait for load completion")
@@ -50,7 +54,7 @@ class InstagramCloneFeedAPIEndToEndTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 7.0)
         
         return receivedResult
     }
