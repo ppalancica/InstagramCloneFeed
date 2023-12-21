@@ -10,6 +10,23 @@ import InstagramCloneFeed
 
 class InstagramCloneFeedAPIEndToEndTests: XCTestCase {
 
+    // Just for reference. DO NOT run this!
+    func demo() {
+        let cache = URLCache(memoryCapacity: 10 * 1024 * 1024,
+                             diskCapacity: 50 * 1024 * 1024,
+                             diskPath: nil)
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = cache
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        let session = URLSession(configuration: configuration)
+        
+        // Can also configure cache for specific requests
+        let url = URL(string: "https://any-url.com")!
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 30)
+        
+        URLCache.shared = cache
+    }
+    
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
             case let .success(items):
@@ -40,7 +57,9 @@ class InstagramCloneFeedAPIEndToEndTests: XCTestCase {
     private func getFeedResult(file: StaticString = #file, // #filePath
                                line: UInt = #line) -> LoadFeedResult? {
         let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
-        let client = URLSessionHTTPClient()
+        // Simply using let client = URLSessionHTTPClient() will cause caching of previous tests
+        // to affect newer tests. For instance, we might go offline, but tests would still pass.
+        let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
         
         trackForMemoryLeaks(client, file: file, line: line)
