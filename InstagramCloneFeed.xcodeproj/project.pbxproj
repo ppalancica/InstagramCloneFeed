@@ -99,7 +99,6 @@
 		6F35C9712B2B5FC700DC4846 /* Feed API */ = {
 			isa = PBXGroup;
 			children = (
-				6F30270F2B2F90780092FFD7 /* Helpers */,
 				6FB024582B1BF447001B317D /* LoadFeedFromRemoteUseCaseTests.swift */,
 				6FB856B92B2E44610034E850 /* URLSessionHTTPClientTests.swift */,
 			);
@@ -166,8 +165,9 @@
 		6FB024472B1BEC05001B317D /* InstagramCloneFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				6F54429B2B34E67500F6A9C8 /* Feed Cache */,
 				6F35C9712B2B5FC700DC4846 /* Feed API */,
+				6F54429B2B34E67500F6A9C8 /* Feed Cache */,
+				6F30270F2B2F90780092FFD7 /* Helpers */,
 				6FB024482B1BEC05001B317D /* InstagramCloneFeedTests.swift */,
 			);
 			path = InstagramCloneFeedTests;
