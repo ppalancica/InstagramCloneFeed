@@ -300,3 +300,6 @@ final class URLSessionHTTPClientTests: XCTestCase {
         override func stopLoading() {}
     }
 }
+
+// We don't want Thread Sanitezer enabled all the times. But we can keep it in CI scheme.
+// That way we can prevent data races before merging to main.
