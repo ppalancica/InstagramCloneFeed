@@ -11,7 +11,7 @@ import InstagramCloneFeed
 class InstagramCloneFeedAPIEndToEndTests: XCTestCase {
 
     // Just for reference. DO NOT run this!
-    func demo() {
+    /*func demo() {
         let cache = URLCache(memoryCapacity: 10 * 1024 * 1024,
                              diskCapacity: 50 * 1024 * 1024,
                              diskPath: nil)
@@ -25,7 +25,7 @@ class InstagramCloneFeedAPIEndToEndTests: XCTestCase {
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 30)
         
         URLCache.shared = cache
-    }
+    }*/
     
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {

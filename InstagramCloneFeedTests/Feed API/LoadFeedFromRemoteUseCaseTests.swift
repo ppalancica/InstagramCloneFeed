@@ -1,5 +1,5 @@
 //
-//  RemoteFeedLoaderTests.swift
+//  LoadFeedFromRemoteUseCaseTests.swift
 //  InstagramCloneFeedTests
 //
 //  Created by Pavel Palancica on 03.12.2023.
@@ -8,7 +8,10 @@
 import XCTest
 import InstagramCloneFeed
 
-class RemoteFeedLoaderTests: XCTestCase {
+// Was named RemoteFeedLoaderTests before
+// Test Name does not have to match Clas Name
+
+class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
