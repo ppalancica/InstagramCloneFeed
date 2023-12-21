@@ -20,9 +20,9 @@ final class URLSessionHTTPClientTests: XCTestCase {
         URLProtocolStub.stopInterceptingRequests()
     }
     
-    func test_getFromURL_performsGETRequestWithURL() {
+    /*func test_getFromURL_performsGETRequestWithURLV1() {
         let url = anyURL()
-        let exp = expectation(description: "Wait for completion")
+        let exp = expectation(description: "Wait for request completion")
         
         URLProtocolStub.observeRequests { request in
             XCTAssertEqual(request.url, url)
@@ -30,9 +30,61 @@ final class URLSessionHTTPClientTests: XCTestCase {
             exp.fulfill()
         }
         
-        makeSUT().get(from: url) { _ in }
+        makeSUT().get(from: url) { _ in } // This cand cause a data race
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_getFromURL_performsGETRequestWithURLV2() {
+        let url = anyURL()
+        let exp1 = expectation(description: "Wait for request completion 1")
+        let exp2 = expectation(description: "Wait for request completion 2")
+        
+        URLProtocolStub.observeRequests { request in
+            XCTAssertEqual(request.url, url)
+            XCTAssertEqual(request.httpMethod, "GET")
+            exp1.fulfill()
+        }
+        
+        makeSUT().get(from: url) { _ in exp2.fulfill() }
+        
+        wait(for: [exp1, exp2], timeout: 1.0)
+    }
+    
+    func test_getFromURL_performsGETRequestWithURLV3() {
+        let url = anyURL()
+        var receivedRequests: [URLRequest] = []
+        
+        URLProtocolStub.observeRequests { request in
+            receivedRequests.append(request)
+        }
+        
+        let exp = expectation(description: "Wait for request completion")
+        makeSUT().get(from: url) { _ in exp.fulfill() }
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(receivedRequests.count, 1)
+        XCTAssertEqual(receivedRequests.first?.url, url)
+        XCTAssertEqual(receivedRequests.first?.httpMethod, "GET")
+    }*/
+    
+    func test_getFromURL_performsGETRequestWithURLV4() {
+        let url = anyURL()
+        var receivedRequests: [URLRequest] = []
+        
+        URLProtocolStub.observeRequests { request in
+            receivedRequests.append(request)
+        }
+        
+        let exp = expectation(description: "Wait for request completion")
+        makeSUT().get(from: url) { _ in exp.fulfill() }
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(receivedRequests.count, 1)
+        XCTAssertEqual(receivedRequests.first?.url, url)
+        XCTAssertEqual(receivedRequests.first?.httpMethod, "GET")
     }
     
     func test_getFromURL_failsOnRequestError() {
@@ -213,7 +265,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
         override class func canInit(with request: URLRequest) -> Bool {
             // guard let url = request.url else { return false }
             // return URLProtocolStub.stubs[url] != nil
-            requestObserver?(request)
+            // requestObserver?(request) // Removed in Video 16 at 7:20
             return true
         }
         
@@ -222,6 +274,13 @@ final class URLSessionHTTPClientTests: XCTestCase {
         }
         
         override func startLoading() {
+            // Added in Video 16 at 7:30
+            // This fixes the data race problem universally
+            if let requestObserver = URLProtocolStub.requestObserver {
+                client?.urlProtocolDidFinishLoading(self)
+                return requestObserver(request)
+            }
+            
             if let data = URLProtocolStub.stub?.data {
                 client?.urlProtocol(self, didLoad: data)
             }
