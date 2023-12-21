@@ -275,7 +275,8 @@ final class URLSessionHTTPClientTests: XCTestCase {
         
         override func startLoading() {
             // Added in Video 16 at 7:30
-            // This fixes the data race problem universally
+            // NOTE: This fixes the data race problem universally
+            // Finish URL loading when observing requests to make sure all URL requests are finished before the test method returns. This way, we prevent data races with threads living longer than the test method that initiated them
             if let requestObserver = URLProtocolStub.requestObserver {
                 client?.urlProtocolDidFinishLoading(self)
                 return requestObserver(request)
