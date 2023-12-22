@@ -128,8 +128,8 @@
 		6F54429B2B34E67500F6A9C8 /* Feed Cache */ = {
 			isa = PBXGroup;
 			children = (
-				6F5442A92B36403600F6A9C8 /* Helpers */,
 				6F54429C2B34E69F00F6A9C8 /* CacheFeedUseCaseTests.swift */,
+				6F5442A92B36403600F6A9C8 /* Helpers */,
 				6F5442A72B363EDE00F6A9C8 /* LoadFromCacheUseCaseTests.swift */,
 			);
 			path = "Feed Cache";
