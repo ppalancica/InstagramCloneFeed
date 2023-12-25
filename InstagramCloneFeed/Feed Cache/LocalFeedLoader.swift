@@ -33,6 +33,7 @@ public final class LocalFeedLoader {
         }
     }
     
+    
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
@@ -43,12 +44,11 @@ public final class LocalFeedLoader {
                     completion(.failure(error))
                 case let .found(feed, timestamp) where self.validate(timestamp):
                     completion(.success(feed.toModels()))
-                case .found:
+                case .found, .empty:
                     // self.store.deleteCachedFeed { _ in } - was causing a side effect
                     completion(.success([]))
-                case .empty:
-                    completion(.success([]))
             }
+            // NOTE: .empty used to be last case with just completion(.success([]))
         }
     }
     
