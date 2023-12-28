@@ -25,6 +25,7 @@
 		6F6C688B2B3A315C00B22620 /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C688A2B3A315C00B22620 /* FeedCacheTestHelpers.swift */; };
 		6F6C688D2B3A325E00B22620 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C688C2B3A325E00B22620 /* SharedTestHelpers.swift */; };
 		6F6C68A92B3CEF3400B22620 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C68A82B3CEF3400B22620 /* FeedCachePolicy.swift */; };
+		6F6C68AB2B3E120600B22620 /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C68AA2B3E120600B22620 /* CodableFeedStoreTests.swift */; };
 		6F8859F12B23C84100FAD781 /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8859F02B23C84100FAD781 /* RemoteFeedLoader.swift */; };
 		6FB024442B1BEC05001B317D /* InstagramCloneFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB0243B2B1BEC05001B317D /* InstagramCloneFeed.framework */; };
 		6FB024492B1BEC05001B317D /* InstagramCloneFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB024482B1BEC05001B317D /* InstagramCloneFeedTests.swift */; };
@@ -70,6 +71,7 @@
 		6F6C688A2B3A315C00B22620 /* FeedCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheTestHelpers.swift; sourceTree = "<group>"; };
 		6F6C688C2B3A325E00B22620 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		6F6C68A82B3CEF3400B22620 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
+		6F6C68AA2B3E120600B22620 /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
 		6F8859F02B23C84100FAD781 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		6FB0243B2B1BEC05001B317D /* InstagramCloneFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InstagramCloneFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB0243E2B1BEC05001B317D /* InstagramCloneFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstagramCloneFeed.h; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				6F5442A92B36403600F6A9C8 /* Helpers */,
 				6F5442A72B363EDE00F6A9C8 /* LoadFromCacheUseCaseTests.swift */,
 				6F6C68882B3A2BC700B22620 /* ValidateFeedCacheUseCaseTests.swift */,
+				6F6C68AA2B3E120600B22620 /* CodableFeedStoreTests.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F6C68AB2B3E120600B22620 /* CodableFeedStoreTests.swift in Sources */,
 				6FB024592B1BF447001B317D /* LoadFeedFromRemoteUseCaseTests.swift in Sources */,
 				6F3027112B2F90990092FFD7 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				6F6C688D2B3A325E00B22620 /* SharedTestHelpers.swift in Sources */,
