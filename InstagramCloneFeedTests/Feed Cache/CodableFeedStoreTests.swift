@@ -203,4 +203,28 @@ class CodableFeedStoreTests: XCTestCase {
     private func deleteStoreArtifacts() {
         try? FileManager.default.removeItem(at: testSpecificStoreURL())
     }
+    
+    private func expect(_ sut: CodableFeedStore,
+                        toRetrieve expectedResult: RetrieveCachedFeedResult,
+                        file: StaticString = #file, // #filePath
+                                             line: UInt = #line) {
+        let exp = expectation(description: "Wait for cache retreival")
+        
+        sut.retrieve { retrieveResult in
+            switch (expectedResult, retrieveResult) {
+                case (.empty, .empty):
+                    break
+                    
+                case let (.found(expected), .found(retrieved)):
+                    XCTAssertEqual(retrieved.feed, expected.feed, file: file, line: line)
+                    XCTAssertEqual(retrieved.timestamp, expected.timestamp, file: file, line: line)
+                default:
+                    XCTFail("Expected to retrieve \(expectedResult), got \(retrieveResult) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
 }
